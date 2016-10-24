@@ -2,33 +2,30 @@
 using System.Collections;
 
 
-public class DeathToParticles : MonoBehaviour, IDamageable
+public class Enemy : MonoBehaviour, IDamageable
 {
-
-    ParticleSystem.EmissionModule particles;
+    public ParticleSystem deathEffect;
+    
     public float Health = 100;
 	// Use this for initialization
 	void Start () {
-        particles = GetComponent<ParticleSystem>().emission;
-        particles.enabled = false;
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	    if (particles.enabled)
-        {
 
-        }
 	}
 
     public void Die()
     {
-        //GetComponent<MeshRenderer>().enabled = false;
-        particles.enabled = true;
+        GameObject.Destroy(gameObject);
     }
 
     public void TakeHit(float damage, Vector3 hitPoint, Vector3 hitDirection)
     {
+        if (damage >= Health)
+            Destroy(Instantiate(deathEffect.gameObject, hitPoint, Quaternion.FromToRotation(Vector3.forward, hitDirection)) as GameObject, deathEffect.startLifetime);
         TakeDamage(damage);
     }
 
