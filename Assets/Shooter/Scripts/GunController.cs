@@ -14,6 +14,7 @@ public class GunController : MonoBehaviour {
 
     public void Update()
     {
+        // This stuff should be in the player class caliing the methods of the same name in this class
         if (Input.GetMouseButton(0))
         {
             OnTriggerHold();
